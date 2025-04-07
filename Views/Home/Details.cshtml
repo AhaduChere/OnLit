@@ -1,0 +1,51 @@
+@model ASPProject.Models.Book
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@Model.Title</title>
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css" />
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet" />
+    <style>
+        h2 {
+            font-family: 'MedievalSharp', cursive;
+            color: white;
+        }
+
+        .frosted-card {
+            backdrop-filter: blur(4px);
+            background-color: rgba(0, 0, 0, 0.25);
+            border-radius: 12px;
+            border: none;
+            color: white;
+        }
+
+        p {
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-image" style="background-image: url('/images/FantasyBackground.jpg'); background-size: cover; background-position: center; background-attachment: fixed; min-height: 100vh;">
+
+    <div class="container d-flex justify-content-center align-items-center vh-100">
+        <div class="card frosted-card text-center shadow-lg p-4" style="max-width: 500px;">
+            <div class="card-body">
+                <h2 class="card-title">@Model.Title</h2>
+                <img src="@Model.ImageUrl" alt="@Model.Title" class="img-fluid rounded mb-3" style="max-width: 200px;">
+                <p class="card-text"><strong>Author:</strong> @Model.Author</p>
+                <p class="card-text"><strong>Price:</strong> $@Model.Price</p>
+                <p class="card-text"><strong>Description:</strong> @Model.Description</p>
+
+                <!-- Add to Cart Button -->
+                <form asp-controller="ShoppingCart" asp-action="AddToCart" method="post">
+                    <input type="hidden" name="bookId" value="@Model.Id" />
+                    <button type="submit" class="btn w-100 mt-2 text-white" style="background-color: #9ab39a;">Add to Cart</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

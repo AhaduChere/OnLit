@@ -1,0 +1,73 @@
+@model IEnumerable<ASPProject.Models.Book>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book List</title>
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <!-- Add Bootstrap Icons stylesheet -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" />
+    <!-- Custom CSS for light green navbar -->
+    <style>
+        .navbar-light-green {
+            background-color: #9ab39a; /* Light green color */
+        }
+         .navbar {
+            width: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light navbar-light-green">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">OnLit</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("CreateAccount", "Customer")">
+                            <i class="bi bi-person"></i>
+                        </a>
+                    </li>
+                    <!-- Add Shopping Cart Link -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "ShoppingCart")">
+                            <i class="bi bi-cart"></i> 
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <h2 class="text-center mb-4">Available Books</h2>
+    <div class="container mt-5">
+        <div class="row">
+            @foreach (var book in Model)
+            {
+                <div class="col-md-3">
+                    <div class="card mb-3">
+                        <img src="@book.ImageUrl" class="card-img-top" alt="Book Cover" style="width: 200px; height: 300px;" />
+                        <div class="card-body">
+                            <h5 class="card-title">@book.Title</h5>
+                            <p class="card-text">Author: @book.Author</p>
+                            <p class="card-text">Price: @book.Price.ToString("C")</p>
+                            <a href="@Url.Action("Details", "Home", new { id = book.Id })" class="btn btn-primary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
